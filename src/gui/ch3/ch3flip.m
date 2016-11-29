@@ -204,7 +204,7 @@ for i = 2:speedUpSim:N
     muzplot = plot3(muzvec(1,:), muzvec(2,:), muzvec(3,:), '--r'); hold on
     muztipplot = scatter3(muz(1,i), muz(2,i), muz(3,i), 'r*'); hold on
     % for B1 field
-    b1vecplot = plot3(b1vec(1,:), b1vec(2,:), b1vec(3,:), '--k'); hold on
+    b1vecplot = plot3(b1vec(1,:), b1vec(2,:), b1vec(3,:), '--g'); hold on
     b1tipplot = scatter3(b1field(1,i), b1field(2,i), b1field(3,i), 'ko'); hold on
 
     % Draw and pause
