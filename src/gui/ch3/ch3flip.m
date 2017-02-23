@@ -92,6 +92,8 @@ varargout{1} = handles.output;
 %             uipanel1: [1x1 Panel]
 %                axes1: [1x1 Axes]
 %           speedOfSim: [1x1 UIControl]
+%           rotateB1mx: [1x1 UIControl]
+%           rotateB1my: [1x1 UIControl]
 %            rotateB1x: [1x1 UIControl]
 %            rotateB1y: [1x1 UIControl]
 %             rotframe: [1x1 UIControl]
@@ -151,15 +153,27 @@ set(handles.speedOfSim, 'String', num2str(speedUpSim));
 % without
 labFrameValue = get(handles.labframe, 'Value');
 % % % % See if the user wants B1 to be static along x-axis or y-axis
-rotateB1Axis = get(handles.rotateB1x, 'Value');
+xplus        = get(handles.rotateB1x,  'Value');
+xminus       = get(handles.rotateB1mx, 'Value');
+yplus        = get(handles.rotateB1y,  'Value');
+
+rotateB1Axis = (xplus == 1) || (xminus == 1);
 
 switch rotateB1Axis
     % If it is static along x-axis
     case 1
-        b1axis = 'x';
+        if xplus == 1
+            b1axis = '+x'; 
+        else
+            b1axis = '-x';
+        end
     % If it is static along y-axis
     case 0
-        b1axis = 'y';
+        if yplus == 1
+            b1axis = '+y';
+        else
+            b1axis = '-y';
+        end
 end
             
 
@@ -209,7 +223,7 @@ for i = 2:speedUpSim:N
 
     % Draw and pause
     drawnow
-    pause(0.001)
+    pause(0.00001)
 
     % Delete vector and arrow so that each update looks new
     % Don't delete last one
