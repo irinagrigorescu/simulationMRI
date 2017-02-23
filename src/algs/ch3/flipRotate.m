@@ -51,20 +51,26 @@ muz     = zeros(3,N);  % projection of magnetic moment on z
 muxy    = zeros(3,N);  % projection of magnetic moment on xy
 b1field = zeros(3,N);  % b1 field is a rotating one
 
-mu(:,1)       = 0*x + 0*y + 1*z;
-muz(:,1)      = 0*x + 0*y + 1*z;
+mu(:,1)       = 0*x + 0*y - 1*z;
+muz(:,1)      = 0*x + 0*y - 1*z;
 muxy(:,1)     = 0*x + 0*y + 0*z;
 b1field(:,1)  = 0*x + 0*y + 0*z;
 
 %% Create rotation functions 
 
 switch rotateB1
-    case 'x'
+    case '+x'
         b1field(:,1)  = 1*x + 0*y + 0*z;
         RotB1 = @(omega, t) Rx(omega, t);
-    case 'y'
+    case '-x'
+        b1field(:,1)  = -1*x + 0*y + 0*z;
+        RotB1 = @(omega, t) Rx(-omega, t);
+    case '+y'
         b1field(:,1)  = 0*x + 1*y + 0*z;
         RotB1 = @(omega, t) Ry(omega, t);
+    case '-y'
+        b1field(:,1)  = 0*x - 1*y + 0*z;
+        RotB1 = @(omega, t) Ry(-omega, t);
 end
 
 switch rotatingFrame
