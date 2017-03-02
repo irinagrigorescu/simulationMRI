@@ -7,9 +7,10 @@
 % % % % for 2 different TRs and a fixed flip angle
 % % % % 
 
+clear all; close all; clc
+addpath ../../helpers
 
 %% Loading some data
-addpath ../../helpers
 run config; params = ans; clear ans;
 
 %% The relaxation function
@@ -72,11 +73,11 @@ end
 figure(1);
 subplot(1,2,1)
 legend(legendMat); 
-titleText = {'Plot of M_z(n) as a function of rf pulse number n', ...
+titleText = {'Plot of M_z^-(n) as a function of rf pulse number n', ...
     [' for different tissue types at \theta = ', num2str(theta), '^o '], ...
     [' and TR = ', num2str(TR1), 'ms']};
 title(titleText); 
-xlabel('n'); ylabel('normalised M_z(n)'); 
+xlabel('n'); ylabel('normalised M_z^-(n)'); 
 grid on
 
 
