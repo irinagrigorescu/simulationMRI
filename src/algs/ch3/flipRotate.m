@@ -51,8 +51,8 @@ muz     = zeros(3,N);  % projection of magnetic moment on z
 muxy    = zeros(3,N);  % projection of magnetic moment on xy
 b1field = zeros(3,N);  % b1 field is a rotating one
 
-mu(:,1)       = 0*x + 0*y - 1*z;
-muz(:,1)      = 0*x + 0*y - 1*z;
+mu(:,1)       = 0*x + 0*y + 1*z;
+muz(:,1)      = 0*x + 0*y + 1*z;
 muxy(:,1)     = 0*x + 0*y + 0*z;
 b1field(:,1)  = 0*x + 0*y + 0*z;
 
