@@ -1,15 +1,36 @@
-function [ mu, muz, muxy, b1field ] = flipRotate( gamma, B0, B1, tau, rotatingFrame, rotateB1 )
+function [ mu, muz, muxy, b1field ] = flipRotate( gamma, B0, B1, phaseAngle, dw, tau, rotatingFrame, rotateB1 )
 % % % % IRINA GRIGORESCU
 % % % % DATE: 28-Nov-2016
 % % % % CHAPTER 3.3.1
 % % % % 
 % % % % This function calculates the trajectory of a precessing spin
 % % % % INPUT PARAMETERS
+% % % %     gamma = 
+% % % % 
+% % % %     B0 = 
+% % % % 
+% % % %     B1 = 
+% % % % 
+% % % %     phaseAngle = will be the phase angle
+% % % % 
+% % % %     dw = off-resonance frequency
+% % % % 
+% % % %     tau = 
+% % % % 
+% % % %     rotatingFrame = 
+% % % % 
+% % % %     rotateB1 = 
 % % % % 
 % % % % 
+% % % % OUTPUT PARAMETERS: - Trajectory of spin through time
+% % % %     mu = magnetic moment vector trajectory
 % % % % 
-% % % % OUTPUT PARAMETERS:
-% % % % Trajectory of spin
+% % % %     muz = mu projection on z axis trajectory 
+% % % % 
+% % % %     muxy = mu projection on transverse plane trajectory
+% % % % 
+% % % %     b1field = b1 field trajectory
+% % % % 
 
 %% Rotation Matrices
 % % % % Creating some local functions for rotations of vectors
@@ -52,7 +73,7 @@ muxy    = zeros(3,N);  % projection of magnetic moment on xy
 b1field = zeros(3,N);  % b1 field is a rotating one
 
 mu(:,1)       = 0*x + 0*y + 1*z;
-muz(:,1)      = 0*x + 0*y + 1*z;
+muz(:,1)      = mu(:,1);         %0*x + 0*y + 1*z;
 muxy(:,1)     = 0*x + 0*y + 0*z;
 b1field(:,1)  = 0*x + 0*y + 0*z;
 
@@ -76,23 +97,26 @@ end
 switch rotatingFrame
     % When not in the rotating frame things go crazy
     case 'no'
-        RotAxis = @(omega, t) Rz(-omega,t);
+        RotAxis = @(omega, ph, dw, t) Rz(dw, t) * Rz(ph, t) * Rz(-omega,t);
 
     % When you are in the rotating frame things look stationary
     case 'yes'
-        RotAxis = @(omega, t) Rz(omega,t) * Rz(-omega,t);
+        RotAxis = @(omega, ph, dw, t) Rz(dw, t) * Rz(ph, t);
 end
+
+%% Calculate the incremental phase angle of the rf pulse
+ph = phaseAngle ./ tau;
 
 %% Calculate vector movement history
 N
 for i = 2:N
     % Update magnetic moment vector position for each timestep
-    mu(:,i)   = RotAxis(omega0, i*dt) * RotB1(omega1, i*dt) * mu(:,1);
+    mu(:,i)   = RotAxis(omega0, ph, dw, i*dt) * RotB1(omega1, i*dt) * mu(:,1);
     % Update magnetic moment vector projections for each timestep
     muz(3,i)  = mu(3,i); 
     muxy(1:2,i) = mu(1:2,i);
     % Update B1 field vector position for each timestep
-    b1field(:,i) = RotAxis(omega0, i*dt) * b1field(:,1);
+    b1field(:,i) = RotAxis(omega0, 0, 0, i*dt) * b1field(:,1);
 end
 
 

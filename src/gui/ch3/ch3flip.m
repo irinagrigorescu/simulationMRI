@@ -178,19 +178,24 @@ end
             
 
 % % % % Call appropriate function
+
+phaseAngle = 0.0 * pi / 180; % RF phase angle
+dw = 0; % off-resonance frequency in Hz
+
+
 switch labFrameValue
     % % % The case where you see all rotations
     case 1
         % Calculate spin movement history
         [ mu, muz, muxy, b1field ] = ...
-            flipRotate( gammaValue, b0Value, b1Value, ...
+            flipRotate( gammaValue, b0Value, b1Value, phaseAngle, dw, ...
             rfpulsetimeValue, 'no', b1axis );
         
     % % % The case where you are in the rotating frame
     case 0
         % Calculate spin movement history
         [ mu, muz, muxy, b1field ] = ...
-            flipRotate( gammaValue, b0Value, b1Value, ...
+            flipRotate( gammaValue, b0Value, b1Value, phaseAngle, dw, ...
             rfpulsetimeValue, 'yes', b1axis );
 end
 
