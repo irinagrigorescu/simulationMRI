@@ -30,10 +30,10 @@ mzeFunc = @(theta, TE, TR, rho0, T1, T2) ...
     ( ( 1 - exp(-TR/T1) ) ./ (1 - cos(theta).*exp(-TR/T1)) );
 
 %% Plot figure
-% Plotting the signal for 0-pi range of rf pulse angles
+% Plotting the signal for 0-pi range of flip angles
 % for 4 tissue types (csf,wm,gm,fat)
 
-% RF pulse angles ranging from 0 to pi
+% Flip angles ranging from 0 to pi
 theta = 0:0.01:pi/4; 
 % A range of TEs
 te = 0:0.1:40;
@@ -109,11 +109,11 @@ end
 figure(1); 
 %subplot(1,2,1)
 legend(legendMat); 
-title('Comparison of the SSI signal for different RF angles and TE = 0ms'); 
+title('Comparison of the SSI signal for different flip angles and TE = 0ms'); 
 xlabel('\theta'); ylabel('\rho(\theta,TE) and M_z_e(\theta,TE)'); 
 % %subplot(1,2,2)
 % legend(legendMat); 
-% title('Comparison of the SSI signal for different RF angles and TE = 0ms'); 
+% title('Comparison of the SSI signal for different flip angles and TE = 0ms'); 
 % xlabel('\theta'); ylabel('\rho(\theta,TE)'); 
 
 figure(2); 
