@@ -179,7 +179,7 @@ end
 
 % % % % Call appropriate function
 
-phaseAngle = 0.0 * pi / 180; % RF phase angle
+phaseAngle = 90.0 * pi / 180; % RF phase angle
 dw = 0; % off-resonance frequency in Hz
 
 
@@ -199,16 +199,20 @@ switch labFrameValue
             rfpulsetimeValue, 'yes', b1axis );
 end
 
-% % % % DRAW
+% % % % % % % % % % %
+% % % % % % % % % % %
+% % % % DRAW  % % % % 
+% % % % % % % % % % %
+% % % % % % % % % % %
 N = length(mu);
         
 % Plot animation
 for i = 2:speedUpSim:N
     % Vector from (0,0,0) to (x,y,z) of updated position
-    muvec = [[0 0 0]'  mu(:,i)]; 
+    muvec   = [[0 0 0]'  mu(:,i)]; 
     muxyvec = [[0 0 0]'  muxy(:,i)]; 
-    muzvec = [[0 0 0]'  muz(:,i)]; 
-    b1vec = [[0 0 0]'  b1field(:,i)]; 
+    muzvec  = [[0 0 0]'  muz(:,i)]; 
+    b1vec   = [[0 0 0]'  b1field(:,i)]; 
 
     % Plot vector and arrow at the end
     % for mu vector

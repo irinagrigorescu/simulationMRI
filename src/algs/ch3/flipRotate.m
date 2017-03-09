@@ -72,40 +72,44 @@ muz     = zeros(3,N);  % projection of magnetic moment on z
 muxy    = zeros(3,N);  % projection of magnetic moment on xy
 b1field = zeros(3,N);  % b1 field is a rotating one
 
-mu(:,1)       = 0*x + 0*y + 1*z;
+mu(:,1)       = 0*x + 0*y - 1*z;
 muz(:,1)      = mu(:,1);         %0*x + 0*y + 1*z;
 muxy(:,1)     = 0*x + 0*y + 0*z;
 b1field(:,1)  = 0*x + 0*y + 0*z;
 
+%% Calculate the incremental phase angle of the rf pulse
+ph = phaseAngle ./ tau;
+
 %% Create rotation functions 
 
+% Rz(ph, tau) makes an instantaneous rotation about z with the phase angle
+% ph; rotations are clockwise
 switch rotateB1
     case '+x'
-        b1field(:,1)  = 1*x + 0*y + 0*z;
-        RotB1 = @(omega, t) Rx(omega, t);
+        b1field(:,1)  = Rz(ph, tau) * (1*x + 0*y + 0*z);
+        RotB1 = @(omega, t) Rz(ph, tau) * Rx(omega, t);
     case '-x'
-        b1field(:,1)  = -1*x + 0*y + 0*z;
-        RotB1 = @(omega, t) Rx(-omega, t);
+        b1field(:,1)  = Rz(ph, tau) * (-1*x + 0*y + 0*z);
+        RotB1 = @(omega, t) Rz(ph, tau) * Rx(-omega, t);
     case '+y'
-        b1field(:,1)  = 0*x + 1*y + 0*z;
-        RotB1 = @(omega, t) Ry(omega, t);
+        b1field(:,1)  = Rz(ph, tau) * (0*x + 1*y + 0*z);
+        RotB1 = @(omega, t) Rz(ph, tau) * Ry(omega, t);
     case '-y'
-        b1field(:,1)  = 0*x - 1*y + 0*z;
-        RotB1 = @(omega, t) Ry(-omega, t);
+        b1field(:,1)  = Rz(ph, tau) * (0*x - 1*y + 0*z);
+        RotB1 = @(omega, t) Rz(ph, tau) * Ry(-omega, t);
 end
 
 switch rotatingFrame
     % When not in the rotating frame things go crazy
+    % The rotationg about z with dw is due to local inhomogeneities
     case 'no'
-        RotAxis = @(omega, ph, dw, t) Rz(dw, t) * Rz(ph, t) * Rz(-omega,t);
+        RotAxis = @(omega, ph, dw, t) Rz(dw, t) * Rz(-omega,t);
 
     % When you are in the rotating frame things look stationary
     case 'yes'
-        RotAxis = @(omega, ph, dw, t) Rz(dw, t) * Rz(ph, t);
+        RotAxis = @(omega, ph, dw, t) Rz(dw, t);
 end
 
-%% Calculate the incremental phase angle of the rf pulse
-ph = phaseAngle ./ tau;
 
 %% Calculate vector movement history
 N
