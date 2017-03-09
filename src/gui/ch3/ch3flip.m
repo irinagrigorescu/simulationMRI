@@ -179,7 +179,7 @@ end
 
 % % % % Call appropriate function
 
-phaseAngle = 90.0 * pi / 180; % RF phase angle
+phaseAngle = 130.0 * pi / 180; % RF phase angle
 dw = 0; % off-resonance frequency in Hz
 
 

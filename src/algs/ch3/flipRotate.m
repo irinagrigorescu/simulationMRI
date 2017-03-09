@@ -37,16 +37,16 @@ function [ mu, muz, muxy, b1field ] = flipRotate( gamma, B0, B1, phaseAngle, dw,
 
 % % % % Rotation about x
 Rx = @(omega,t) [ 1         0            0       ; 
-                  0   cos(omega*t)  sin(omega*t) ;
-                  0  -sin(omega*t)  cos(omega*t) ];
+                  0   cos(omega*t)  -sin(omega*t) ;
+                  0   sin(omega*t)   cos(omega*t) ];
 % % % % Rotation about y
-Ry = @(omega,t) [ cos(omega*t)  0  -sin(omega*t) ; 
-                        0       1         0      ;
-                  sin(omega*t)  0   cos(omega*t) ];
+Ry = @(omega,t) [  cos(omega*t)  0   sin(omega*t) ; 
+                        0        1         0      ;
+                  -sin(omega*t)  0   cos(omega*t) ];
 % % % % Rotation about z
-Rz = @(omega,t) [ cos(omega*t) sin(omega*t) 0 ; 
-                 -sin(omega*t) cos(omega*t) 0 ;
-                        0            0      1 ];              
+Rz = @(omega,t) [ cos(omega*t) -sin(omega*t) 0 ; 
+                  sin(omega*t)  cos(omega*t) 0 ;
+                         0            0      1 ];              
 
 %% Useful parameters
 
@@ -105,7 +105,8 @@ switch rotatingFrame
     case 'no'
         RotAxis = @(omega, ph, dw, t) Rz(dw, t) * Rz(-omega,t);
 
-    % When you are in the rotating frame things look stationary
+    % When you are in the rotating frame things look stationaryti
+    % and rotation is caused only by off-resonance stuff
     case 'yes'
         RotAxis = @(omega, ph, dw, t) Rz(dw, t);
 end
@@ -115,12 +116,12 @@ end
 N
 for i = 2:N
     % Update magnetic moment vector position for each timestep
-    mu(:,i)   = RotAxis(omega0, ph, dw, i*dt) * RotB1(omega1, i*dt) * mu(:,1);
+    mu(:,i)   = RotAxis(-omega0, ph, dw, i*dt) * RotB1(-omega1, i*dt) * mu(:,1);
     % Update magnetic moment vector projections for each timestep
     muz(3,i)  = mu(3,i); 
     muxy(1:2,i) = mu(1:2,i);
     % Update B1 field vector position for each timestep
-    b1field(:,i) = RotAxis(omega0, 0, 0, i*dt) * b1field(:,1);
+    b1field(:,i) = RotAxis(-omega0, 0, 0, i*dt) * b1field(:,1);
 end
 
 
