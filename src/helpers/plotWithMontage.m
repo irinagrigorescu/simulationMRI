@@ -1,4 +1,8 @@
 function plotWithMontage(tmp,m,n,p,size)
+%  Author: Danny Ramasawmy
+%  rmapdrr@ucl.ac.uk
+%  dannyramasawmy@googlemail.com
+%
 % INPUT:
 %   tmp     = 3D volume
 %   [m,n,p] = size(tmp)
