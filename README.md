@@ -9,6 +9,7 @@ Email: <irina.grigorescu.15@ucl.ac.uk>
 This work is based on the famous _Green Bible_: Magnetic Resonance Imaging: Physical Principles and Sequence Design by Robert W. Brown, Yu-Chung Cheng and E. Mark Haacke
 
 Additionally, the learning/ folder may contain different things I like to try.
+For example, I am currently experimenting with the extended phase graph concept, so you will find a multi-pulse experiment that can simulate echo formation.
 
 ### TODO
 - [ ] Fix the phase stuff because phase is related to B1 field, and modelling it as a rotation about the z axis does not make sense physically.
