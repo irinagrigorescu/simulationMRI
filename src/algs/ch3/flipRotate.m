@@ -1,4 +1,6 @@
-function [ mu, muz, muxy, b1field ] = flipRotate( gamma, B0, B1, phaseAngle, dw, tau, rotatingFrame, rotateB1 )
+function [ mu, muz, muxy, b1field ] = flipRotate( gamma, B0, B1, ...
+                    phaseAngle, dw, tau, ...
+                    rotatingFrame, rotateB1 )
 % % % % IRINA GRIGORESCU
 % % % % DATE: 28-Nov-2016
 % % % % CHAPTER 3.3.1
@@ -72,10 +74,10 @@ muz     = zeros(3,N);  % projection of magnetic moment on z
 muxy    = zeros(3,N);  % projection of magnetic moment on xy
 b1field = zeros(3,N);  % b1 field is a rotating one
 
-mu(:,1)       = 0*x + 0*y - 1*z;
+mu(:,1)       = 0*x + 0*y + 1*z;
 muz(:,1)      = mu(:,1);         %0*x + 0*y + 1*z;
 muxy(:,1)     = 0*x + 0*y + 0*z;
-b1field(:,1)  = 0*x + 0*y + 0*z;
+b1field(:,1)  = 1*x + 0*y + 0*z;
 
 %% Calculate the incremental phase angle of the rf pulse
 ph = phaseAngle ./ tau;
@@ -87,16 +89,16 @@ ph = phaseAngle ./ tau;
 switch rotateB1
     case '+x'
         b1field(:,1)  = Rz(ph, tau) * (1*x + 0*y + 0*z);
-        RotB1 = @(omega, t) Rz(ph, tau) * Rx(omega, t);
+        RotB1 = @(omega, t) Rz(ph, tau) * Rx(omega, t) * Rz(-ph, tau);
     case '-x'
         b1field(:,1)  = Rz(ph, tau) * (-1*x + 0*y + 0*z);
-        RotB1 = @(omega, t) Rz(ph, tau) * Rx(-omega, t);
+        RotB1 = @(omega, t) Rz(ph, tau) * Rx(-omega, t) * Rz(-ph, tau);
     case '+y'
         b1field(:,1)  = Rz(ph, tau) * (0*x + 1*y + 0*z);
-        RotB1 = @(omega, t) Rz(ph, tau) * Ry(omega, t);
+        RotB1 = @(omega, t) Rz(ph, tau) * Ry(omega, t) * Rz(-ph, tau);
     case '-y'
         b1field(:,1)  = Rz(ph, tau) * (0*x - 1*y + 0*z);
-        RotB1 = @(omega, t) Rz(ph, tau) * Ry(-omega, t);
+        RotB1 = @(omega, t) Rz(ph, tau) * Ry(-omega, t) * Rz(-ph, tau);
 end
 
 switch rotatingFrame
@@ -116,7 +118,8 @@ end
 N
 for i = 2:N
     % Update magnetic moment vector position for each timestep
-    mu(:,i)   = RotAxis(-omega0, ph, dw, i*dt) * RotB1(-omega1, i*dt) * mu(:,1);
+    mu(:,i)   = RotAxis(-omega0, ph, dw, i*dt) * ...
+                RotB1(-omega1, i*dt) * mu(:,1);
     % Update magnetic moment vector projections for each timestep
     muz(3,i)  = mu(3,i); 
     muxy(1:2,i) = mu(1:2,i);
