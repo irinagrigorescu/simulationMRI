@@ -76,10 +76,13 @@ grid on;
 % % % % % % % % % % % 
 % % % % % % % % % % % 
 % % % % % % % % % % % We turn on a gradient of strength 0.1G/cm in the x
-% direction for the whole excitation. We also know gamma = 4258 Hz/G
+% direction for the whole excitation. 
+% We also know gamma = 4258 Hz/G (Hz/Gauss)
+% 1 Tesla = 10^4  Gauss 
+% 1 Gauss = 10^-4 Tesla = 100uT
 xpos   = -20 : 0.01 : 20; % mm in position
 gamma = 4.258;          % kHz/G
-grad  = 0.005;           % 0.1 G/cm = 0.01G/mm
+grad  = 0.005;          % 0.1 G/cm = 0.01G/mm
 M0   = [0 0 1]'; % relaxed magnetisation vector 
 tau = 2.3;
 

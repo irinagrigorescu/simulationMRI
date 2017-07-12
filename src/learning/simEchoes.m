@@ -14,24 +14,27 @@ addpath ../helpers/
 % % % % Choose Yourself:
 
 % % Relaxation Terms:
-T1 =  1000;
-T2 =    50;
+T1 =  10000;
+T2 =  10000;
 
 % % RF pulses:
 % rfa = [60,   90,  90]; % flip angles
 % pha = [ 0,    0,   0]; % phase angles
 % tau = [ 0,   16,  20]; % time before them
-rfa = [90, 180, 60, 90, 60]; % flip angles
-pha = [ 0,   0,  0,  0,  0]; % phase angles
-tau = [ 0,  10, 15, 15, 20]; % time before them
+% rfa = [90, 180, 60, 90, 60]; % flip angles
+% pha = [ 0,   0,  0,  0,  0]; % phase angles
+% tau = [ 0,  10, 15, 15, 20]; % time before them
+rfa = [90, 0]; % flip angles
+pha = [ 0, 0]; % phase angles
+tau = [ 0, 20]; % time before them
 Npulses = length(rfa);       % how many
-TR  = 1.5 * sum(tau); % total time of simulation
+TR  = 100; %1.5 * sum(tau); % total time of simulation
 
 % % Spins: 
-N   =  1000;
+N   =  2000;
 dw  =  12*pi/(2*pi*max(tau));
 dws = linspace(-dw, dw, N); % create a population of spins with equally
-                           % distributed off-resonances
+                            % distributed off-resonances
 %dw  = 0.01;                           
 %dws = sqrt(dw).*randn(N,1); % create a population of spins with 
 %                           % off-resonances drawn from a normal distribution
@@ -53,6 +56,7 @@ end
 
 % Plot their evolution in time
 M   = repmat([0 0 1]', 1, N);    % The m vectors
+% separatingSpins = linspace(-0.5, 0.5, N);
 
 % Figure
 figure('Position', [10,10,1200,800])
@@ -75,8 +79,9 @@ xlabel('t (ms)')
 % Magnetic moments (the 3D plot)
 subplot(nr,nc,simul3DPos)
 c = linspace(1,2,N); % % Colors for the magnetic moments tips
-createAxis(1,1,1);
-axis square; xlim([-1 1]); ylim([-1 1]); zlim([-1 1]); 
+axisl = 1.1;
+createAxis(axisl);
+axis square; %xlim([-1 1]); ylim([-1 1]); zlim([-1 1]); 
 view(110, 10); %(110,10)
 vecTip3D = scatter3(M(1, :), M(2, :), M(3, :), [], c, 'filled');
 
@@ -85,7 +90,7 @@ subplot(nr,nc,simul2DPos)
 plot([0 0], [1 -1], 'k--'), hold on, plot([1 -1], [0 0], 'k--')
 vecTip2D = scatter(M(1, :), M(2, :), [], c, 'filled');
 axis equal
-xlim([-1 1]); ylim([-1 1])
+xlim([-axisl axisl]); ylim([-axisl axisl])
 xlabel('x') ; ylabel('y'); 
 grid on
 
@@ -151,7 +156,8 @@ for i = 1:Tpoints
     
     % % % The 3D plot
     subplot(nr,nc,simul3DPos)
-    vecTip3D  = scatter3(M(1, :), M(2, :), M(3, :), [], c, 'filled'); 
+    vecTip3D  = scatter3(M(1, :), M(2, :), M(3, :), ...
+                         [], c, 'filled'); 
     hold on
 
     % The 2D plot
