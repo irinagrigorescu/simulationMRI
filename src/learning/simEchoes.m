@@ -14,8 +14,8 @@ addpath ../helpers/
 % % % % Choose Yourself:
 
 % % Relaxation Terms:
-T1 =  10000;
-T2 =  10000;
+T1 =   600;
+T2 =    80;
 
 % % RF pulses:
 % rfa = [60,   90,  90]; % flip angles
@@ -24,11 +24,27 @@ T2 =  10000;
 % rfa = [90, 180, 60, 90, 60]; % flip angles
 % pha = [ 0,   0,  0,  0,  0]; % phase angles
 % tau = [ 0,  10, 15, 15, 20]; % time before them
-rfa = [90, 0]; % flip angles
-pha = [ 0, 0]; % phase angles
-tau = [ 0, 20]; % time before them
+
+% % CPMG Weigel Paper: 
+rfa = [90, 60, 60, 60, 60, 60]; % flip angles
+pha = [90,  0,  0,  0,  0,  0]; % phase angles
+tau = [ 0,  5, 10, 10, 10, 10]; % time before them
 Npulses = length(rfa);       % how many
-TR  = 100; %1.5 * sum(tau); % total time of simulation
+TR  = 1.5 * sum(tau); % total time of simulation
+
+% % % % CPMG:
+% % rfa = [90, 180, 180, 180, 180, 180]; % flip angles
+% % pha = [ 0,   0,   0,   0,   0,   0]; % phase angles
+% % tau = [ 0,   5,  10,  10,  10,  10]; % time before them
+% % Npulses = length(rfa);       % how many
+% % TR  = 1.5 * sum(tau); % total time of simulation
+
+% % % % Carr-Purcell:
+% % rfa = [90, 180, 180, 180, 180, 180]; % flip angles
+% % pha = [ 0,  90,  90,  90,  90,  90]; % phase angles
+% % tau = [ 0,   5,  10,  10,  10,  10]; % time before them
+% % Npulses = length(rfa);       % how many
+% % TR  = 1.5 * sum(tau); % total time of simulation
 
 % % Spins: 
 N   =  2000;
