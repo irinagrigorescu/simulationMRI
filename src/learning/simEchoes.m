@@ -1,209 +1,135 @@
-% % function simEchoes()
+function simEchoes(N, T1, T2, dws, ...
+                   rfa, pha, tau, Ttotal, ...
+                   videoFlag)
 % % % % IRINA GRIGORESCU
 % % % % DATE CREATED: 28-06-2017
 % % % % DATE UPDATED: 28-06-2017
 % % % % 
 % % % % Simulating echoes in a graphical way
 % % % % 
+% % % % INPUT:
+% % % %     N   = number of spins
+% % % %     T1  = T1 relaxation time (ms)
+% % % %     T2  = T2 relaxation time (ms)
+% % % %     dws = off-resonance frequencies for the N spins (kHz)
+% % % %     rfa = flip  angles (deg)
+% % % %     pha = phase angles (deg)
+% % % %     tau = time between rf pulses (ms)
+% % % %     Ttotal = total time of simulation (ms)
+% % % %     videoFlag = (struct) with:
+% % % %                .flag      = 1 if I want a video
+% % % %                .nameVideo = name of the video (string)
+% % % % 
+% % % % OUTPUT: 
+% % % %     - video
 % % % % 
 
-% clear all
-% close all
-addpath ../helpers/
+%% Make video if flag set to 1
+if videoFlag.flag == 1
+    % Make a frame by frame movie
+    % need to set this up
+    videoClass = VideoWriter([videoFlag.nameVideo, '.mp4'], ...
+                             'MPEG-4'); % #need this for video
 
-% % % % Choose Yourself:
-
-% % Relaxation Terms:
-T1 =   200;
-T2 =    30;
-
-% % RF pulses:
-% rfa = [60,   90,  90]; % flip angles
-% pha = [ 0,    0,   0]; % phase angles
-% tau = [ 0,   16,  20]; % time before them
-% rfa = [90, 180, 60, 90, 60]; % flip angles
-% pha = [ 0,   0,  0,  0,  0]; % phase angles
-% tau = [ 0,  10, 15, 15, 20]; % time before them
-
-% % % % % % 1. CPMG Weigel Paper: 
-% % % % EVENTS
-% rfa = [90, 60, 60, 60, 60]; % flip angles
-% pha = [90,  0,  0,  0,  0]; % phase angles
-% tau = [ 0,  2,  4,  4,  4]; % time before them
-% Npulses = length(rfa);       % how many
-% TR  = 1.2 * sum(tau); % total time of simulation
-% % % % SPINS:
-% N   =  1000;
-% dw  =  2.1*pi/(2*pi*min(tau(tau~=0))); % full circle dephasing over 
-%                                        % smallest tau
-% dws = linspace(-dw, dw, N); % create a population of spins with equally
-%                             % distributed off-resonances
-
-% % % % % % % 2. Spin Echo Classic
-% % % % EVENTS
-% rfa = [90, 180]; % flip angles
-% pha = [ 0,  0 ]; % phase angles
-% tau = [ 0,  2]; % time before them
-% Npulses = length(rfa);       % how many
-% TR  = 4 * sum(tau); % total time of simulation
-% % % % SPINS:
-% N   =  1000;
-% dw  =  2.1*pi/(2*pi*min(tau(tau~=0))); % full circle dephasing over 
-%                                        % smallest tau
-% dws = linspace(-dw, dw, N); % create a population of spins with equally
-%                             % distributed off-resonances
-
-% % % % % % % 3. Spin Echo 8 ball - the 2nd 90 produces a spin echo with
-% % reduced amplitude
-% % % % EVENTS
-% rfa = [90,  90]; % flip angles
-% pha = [ 90,   90 ]; % phase angles
-% tau = [ 0,   2]; % time before them
-% Npulses = length(rfa);       % how many
-% TR  = 4 * sum(tau); % total time of simulation
-% % % % SPINS:
-% N   =  1000;
-% dw  =  1.09*pi/(2*pi*min(tau(tau~=0))); % full circle dephasing over 
-%                                        % smallest tau
-% dws = linspace(-dw, dw, N); % create a population of spins with equally
-%                             % distributed off-resonances
-
-% % % % % % % 4. Stimulated Echo
-% % Magnetization is ?stored? along z-direction 
-% % between second and third pulse (so-called ?phase memory?)
-% % % % RELAXATION TERMS
-% T1 =   200;
-% T2 =    30;
-% % % % EVENTS
-% rfa = [90, 90, 90]; % flip angles
-% pha = [ 0,  0,  0 ]; % phase angles
-% tau = [ 0,  2, 20]; % time before them
-% Npulses = length(rfa);       % how many
-% TR  = 2 * sum(tau); % total time of simulation
-% % % % SPINS:
-% N   =  1000;
-% dw  =  1.09*pi/(2*pi*min(tau(tau~=0))); % full circle dephasing over 
-%                                        % smallest tau
-% dws = linspace(-dw, dw, N); % create a population of spins with equally
-%                             % distributed off-resonances
-
-% % % % % % 5. 3 RF PULSES AND 5 ECHOES
-% % % RELAXATION TERMS
-T1 =   200;
-T2 =    80;
-% % % EVENTS
-rfa = [60, 60, 90]; % flip angles
-pha = [ 0,  0,  0 ]; % phase angles
-tau = [ 0,  2,  6]; % time before them
-Npulses = length(rfa);       % how many
-TR  = 2.5 * sum(tau); % total time of simulation
-% % % SPINS:
-N   =  1000;
-dw  =  12.09*pi/(2*pi*min(tau(tau~=0))); % full circle dephasing over 
-                                       % smallest tau
-dws = linspace(-dw, dw, N); % create a population of spins with equally
-                            % distributed off-resonances
-
-                            
-% % % % CPMG:
-% % rfa = [90, 180, 180, 180, 180, 180]; % flip angles
-% % pha = [ 0,   0,   0,   0,   0,   0]; % phase angles
-% % tau = [ 0,   5,  10,  10,  10,  10]; % time before them
-% % Npulses = length(rfa);       % how many
-% % TR  = 1.5 * sum(tau); % total time of simulation
-
-% % % % Carr-Purcell:
-% % rfa = [90, 180, 180, 180, 180, 180]; % flip angles
-% % pha = [ 0,  90,  90,  90,  90,  90]; % phase angles
-% % tau = [ 0,   5,  10,  10,  10,  10]; % time before them
-% % Npulses = length(rfa);       % how many
-% % TR  = 1.5 * sum(tau); % total time of simulation
-
-
-%dw  = 0.01;                           
-%dws = sqrt(dw).*randn(N,1); % create a population of spins with 
-%                           % off-resonances drawn from a normal distribution
-
-%% Create event matrix for plotting
-dt  = 0.1; % how finely grained you want your simulation
-
-% Events matrix with:
-Tpoints = ceil(TR/dt);
-% % % 1 = timepoint | 2 = RF.FA | 3 = RF.PhA
-RFevents = zeros(3, Tpoints);
-% Populate event matrix with the timpoints
-RFevents(1, :) = linspace(0, TR, Tpoints);
-% Populate eventmatrix with the rf pulses and phase angles
-for i = 1:Npulses
-	RFevents(2, floor(sum(tau(1:i))/dt)+1) =  rfa(i);
-    RFevents(3, floor(sum(tau(1:i))/dt)+1) =  pha(i);
+    frameRate = 25;                        % optional
+    videoClass.set('FrameRate',frameRate); % optional
+    open(videoClass)                       % #need this for video
 end
 
-% Plot their evolution in time
-M   = repmat([0 0 1]', 1, N);    % The m vectors
-% separatingSpins = linspace(-0.5, 0.5, N);
-% The 0,0,0 -> Mxyz lines
-MLines = zeros(3, 2*N);
-% MLines(3, 1:2:end) = positZ(:); % start coordinate
-MLines(:, 2:2:end) = M(:, :);   % end   coordinate
+%% Create event matrix for plotting
 
-% Figure
-figure('Position', [10,10,1200,800])
-nr = 5; nc = 11;
-eventsPos = [ 1,  5]; % event matrix
-signalPos = [ 7, 11]; % signal
+% Prerequisites:
+Npulses = length(rfa); % how many pulses we have
+dt  = 0.1;             % how finely grained you want your simulation
+
+% Events matrix with:
+Tpoints = ceil(Ttotal/dt); % number of time points in simulation
+% % % Events: 1 = timepoint | 2 = RF.FA | 3 = RF.PhA
+RFevents = zeros(3, Tpoints);
+% Populate event matrix with the timpoints (1st line)
+RFevents(1, :) = linspace(0, Ttotal, Tpoints); 
+% Populate eventmatrix with the rf pulses and phase angles
+for i = 1:Npulses
+	RFevents(2, floor(sum(tau(1:i))/dt)+1) =  rfa(i); % 2nd line
+    RFevents(3, floor(sum(tau(1:i))/dt)+1) =  pha(i); % 3rd line
+end
+
+% Keep position of all of them in M (3xN)
+M   = repmat([0 0 1]', 1, N);    % The m vectors
+% The 0,0,0 -> Mxyz lines
+MLines = zeros(3, 2*N);          % The vector lines (start from 0,0,0)
+MLines(:, 2:2:end) = M(:, :);    % end coordinate   (end at M_x,y,z)
+
+% % % % Figure and its global details:
+figHand = figure('Position', [10,10,1200,800]); % #need this for video
+nr = 5; nc = 11;         % subplots
+eventsPos = [ 1,  5];    % event matrix
+signalPos = [ 7, 11];    % signal
 simul3DPos = [  12, 49]; % the 3D view 
 simul2DPos = [  18, 54]; % the 2D projection view
+c = linspace(1,2,N);     % Colors for the magnetic moments tips
+axisl = 1.1;             % axis limits in the 3D/2D plots
 
-% Events
+% % %
+% 1st subplot is the Events
 subplot(nr,nc,eventsPos)
-scatter(RFevents(1,:), RFevents(3,:), 'ro', 'filled'), hold on % phase angles
+% The phase angles
+scatter(RFevents(1,:), RFevents(3,:), 'ro', 'filled'), hold on
+% The flip angles
 stem(   RFevents(1,:), RFevents(2,:), 'b')
+% Details about the plot
 grid on
-xlim([-1, TR])
-ylabel('RF angle (deg)')
-xlabel('t (ms)')
+xlim([-1, Ttotal])
+xlabel('t (ms)'); ylabel('RF angle (deg)')
 
-% Magnetic moments (the 3D plot)
+% % %
+% 2nd subplot is the Magnetic moments (the 3D plot)
 subplot(nr,nc,simul3DPos)
-c = linspace(1,2,N); % % Colors for the magnetic moments tips
-axisl = 1.1;
-createAxis(axisl);
-axis square; %xlim([-1 1]); ylim([-1 1]); zlim([-1 1]); 
-view(110, 10); %(110,10)
+% Create the coordinate system axis
+createAxis(axisl); 
+% The vector tip
 vecTip3D = scatter3(M(1, :), M(2, :), M(3, :), [], c, 'filled'); hold on
+% The vector line
 vecLine3D = plot3(MLines(1, :), ...
                   MLines(2, :), ...
                   MLines(3, :), 'k' );
+% Plot details
+axis square; %xlim([-1 1]); ylim([-1 1]); zlim([-1 1]); 
+view(110, 10); %(110,10)
 
-% Magnetic moments (the 2D plot)
+% % %
+% 3rd subplot is the Magnetic moments (the 2D plot)
 subplot(nr,nc,simul2DPos)
-plot([0 0], [1 -1], 'k--'), hold on, plot([1 -1], [0 0], 'k--')
+% The coordinate system lines
+plot([0 0], [1 -1], 'k--'), hold on, plot([1 -1], [0 0], 'k--');
+% The vector tip
 vecTip2D = scatter(M(1, :), M(2, :), [], c, 'filled'); hold on
-vecLine2D = plot(MLines(1, :), ...
-                 MLines(2, :), 'k' );
+% The vector line
+vecLine2D = plot(MLines(1, :), MLines(2, :), 'k' );
+% Plot details
+grid on
 axis equal
 xlim([-axisl axisl]); ylim([-axisl axisl])
 xlabel('x') ; ylabel('y'); 
-grid on
 
-% Signal
+% % %
+% 4th subplot is the Signal
 subplot(nr,nc,signalPos)
 % Add T2 exponential decay curve
 plot(RFevents(1,:), exp(-RFevents(1,:)/T2)), hold on
 % Add the RF pulses
 stem(RFevents(1,:), RFevents(2,:)~=0, 'k--', 'marker', 'none')
+% Plot details
 grid on
-xlim([-1, TR])
-ylim([0, 1])
-ylabel('|M_{xy}|')
-xlabel('t (ms)')
-legend('-e^{-t/T_2}')
+xlim([-1, Ttotal]); ylim([0, 1]);
+ylabel('|M_{xy}|'); xlabel('t (ms)');
+legend('-e^{-t/T_2}');
 
 
 pause
 
 
+% Start simulation
 for i = 1:Tpoints
     
     % Delete history of vectors
@@ -246,8 +172,14 @@ for i = 1:Tpoints
             % Plot the tips
             vecTip2D = scatter(Mtemp(1, :), Mtemp(2, :), ...
                                [], c, 'filled');
-            
+            % Pause
             pause(0.1)
+            % % Save into video if flag set to 1
+            if videoFlag.flag == 1
+                frame = getframe(figHand);                 % #need this for video
+                writeVideo(videoClass,frame)               % #need this for video
+            end
+            % Delets
             delete(vecTip3D); delete(vecTip2D); 
             delete(vecLine2D); delete(vecLine3D);
         end
@@ -295,15 +227,27 @@ for i = 1:Tpoints
     subplot(nr,nc,signalPos)
     scatter(RFevents(1,i), sqrt((sum(M(1,:))./N).^2 + ...
                                 (sum(M(2,:))./N).^2), 'k.')
-
     hold on
     grid on
-    xlim([0, TR])
+    xlim([0, Ttotal])
+    
+    % Pause
+    pause(0.0001)
+    
+    % % Save into video if flag set to 1
+    if videoFlag.flag == 1
+        frame = getframe(figHand);                 % #need this for video
+        writeVideo(videoClass,frame)               % #need this for video
+    end
     
     % delets
-    pause(0.0001)
     delete(event)
     
+end
+
+% % Close video handle if video flag set to 1
+if videoFlag.flag == 1
+    close(videoClass)                              % #need this for video
 end
 
 % % % end % FUNCTION END
