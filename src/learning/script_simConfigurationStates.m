@@ -22,5 +22,5 @@ videoFlag.flag      = 1;    % % Don't make video
 videoFlag.nameVideo = 'configStatesSim-video';
 
 % % % % % % % % % % % RUN SIMULATION:
-simConfigurationStates(N, T1, T2, videoFlag);
+func_simConfigurationStates(N, T1, T2, videoFlag);
 
