@@ -18,7 +18,7 @@ T2 = 10000;
 % % SPINS:
 N   =  1000;
 % % VIDEO:
-videoFlag.flag      = 1;    % % Don't make video
+videoFlag.flag      = 0;    % % Don't make video
 videoFlag.nameVideo = 'configStatesSim-video';
 
 % % % % % % % % % % % RUN SIMULATION:
