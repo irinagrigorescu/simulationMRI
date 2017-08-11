@@ -2,7 +2,7 @@
 % % % % DATE CREATED: 17-07-2017
 % % % % DATE UPDATED: 17-07-2017
 % % % % 
-% % % % Different Sequences to simulate with the simEchoes function
+% % % % Different Sequences to simulate with the func_simEchoes function
 % % % % 
 
 % % Prerequisites:
@@ -31,7 +31,7 @@ videoFlag.flag      = 0;    % % 0 = Don't make video
 videoFlag.nameVideo = 'echoSim-CPMG-video';
 
 % % % % % % % % % % % RUN SIMULATION:
-simEchoes(N, T1, T2, dws, rfa, pha, tau, Ttotal, videoFlag);
+func_simEchoes(N, T1, T2, dws, rfa, pha, tau, Ttotal, videoFlag);
                             
 %% % % % % % % % 2. Spin Echo Classic
 % % RELAXATION TERMS:
@@ -54,7 +54,7 @@ videoFlag.flag      = 0;    % % 0 = Don't make video
 videoFlag.nameVideo = 'echoSim-SEclassic-video';
 
 % % % % % % % % % % % RUN SIMULATION:
-simEchoes(N, T1, T2, dws, rfa, pha, tau, Ttotal, videoFlag);
+func_simEchoes(N, T1, T2, dws, rfa, pha, tau, Ttotal, videoFlag);
 
 %% % % % % % % % 3. Spin Echo 8 ball - the 2nd 90 produces a spin echo with
 % % reduced amplitude
