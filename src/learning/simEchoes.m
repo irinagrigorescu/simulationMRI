@@ -65,8 +65,9 @@ figHand = figure('Position', [10,10,1200,800]); % #need this for video
 nr = 5; nc = 11;         % subplots
 eventsPos = [ 1,  5];    % event matrix
 signalPos = [ 7, 11];    % signal
+simulMxyz = [18, 22];    % The x,y,z components
 simul3DPos = [  12, 49]; % the 3D view 
-simul2DPos = [  18, 54]; % the 2D projection view
+simul2DPos = [  29, 55]; % the 2D projection view
 c = linspace(1,2,N);     % Colors for the magnetic moments tips
 axisl = 1.1;             % axis limits in the 3D/2D plots
 
@@ -125,6 +126,17 @@ xlim([-1, Ttotal]); ylim([0, 1]);
 ylabel('|M_{xy}|'); xlabel('t (ms)');
 legend('-e^{-t/T_2}');
 
+% % %
+% 5th subplot is the components
+subplot(nr,nc,simulMxyz)
+netM = sum(M,2)./N;
+scatter(RFevents(1,i),netM(1),'b.'); hold on
+scatter(RFevents(1,i),netM(2),'r.');
+scatter(RFevents(1,i),netM(3),'g.');
+grid on
+xlim([0, Ttotal]); ylim([-1, 1]);
+ylabel('M_i'); xlabel('t (ms)');
+legend('M_x','M_y','M_z')
 
 pause
 
@@ -172,6 +184,16 @@ for i = 1:Tpoints
             % Plot the tips
             vecTip2D = scatter(Mtemp(1, :), Mtemp(2, :), ...
                                [], c, 'filled');
+                           
+            % % % The components plot
+            subplot(nr,nc,simulMxyz)
+            netM = sum(Mtemp,2)./N;
+            scatter(RFevents(1,i),netM(1),'b.'); hold on
+            scatter(RFevents(1,i),netM(2),'r.');
+            scatter(RFevents(1,i),netM(3),'g.');
+            grid on
+            xlim([0, Ttotal]); ylim([-1, 1]);
+
             % Pause
             pause(0.1)
             % % Save into video if flag set to 1
@@ -223,13 +245,23 @@ for i = 1:Tpoints
     % Plot the tips
     vecTip2D = scatter(M(1, :), M(2, :), [], c, 'filled');
     
-    % Signal
+    % % % Signal
     subplot(nr,nc,signalPos)
     scatter(RFevents(1,i), sqrt((sum(M(1,:))./N).^2 + ...
                                 (sum(M(2,:))./N).^2), 'k.')
     hold on
     grid on
     xlim([0, Ttotal])
+    
+    % % % The components
+    subplot(nr,nc,simulMxyz)
+    netM = sum(M,2)./N;
+    scatter(RFevents(1,i),netM(1),'b.'); hold on
+    scatter(RFevents(1,i),netM(2),'r.');
+    scatter(RFevents(1,i),netM(3),'g.');
+    grid on
+    xlim([0, Ttotal]); ylim([-1, 1]);
+    ylabel('M_i'); xlabel('t (ms)');
     
     % Pause
     pause(0.0001)
