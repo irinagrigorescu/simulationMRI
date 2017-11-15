@@ -1,0 +1,40 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Magnetic Resonance Imaging: A Preview}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Summary}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Exercises}{5}{subsection.1.2}
+\contentsline {section}{\numberline {2}Classical Response of a Single Nucleus to a Magnetic Field}{7}{section.2}
+\contentsline {subsection}{\numberline {2.1}Summary}{7}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Exercises}{12}{subsection.2.2}
+\contentsline {section}{\numberline {3}Rotating Reference Frames and Resonance}{23}{section.3}
+\contentsline {subsection}{\numberline {3.1}Summary}{23}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Exercises}{24}{subsection.3.2}
+\contentsline {section}{\numberline {4}Magnetization, Relaxation, and the Bloch Equation}{33}{section.4}
+\contentsline {subsection}{\numberline {4.1}Summary}{33}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Exercises}{34}{subsection.4.2}
+\contentsline {section}{\numberline {5}The Continuous and Discrete Fourier Transforms}{41}{section.5}
+\contentsline {subsection}{\numberline {5.1}The Continuous Fourier Transform}{42}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Continuous Fourier Transform Properties and Phase Imaging}{44}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}Complexity of the Reconstructed Image}{44}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}The Shift Theorem}{44}{subsubsection.5.2.2}
+\contentsline {subsubsection}{\numberline {5.2.3}Phase Imaging and Phase Aliasing}{45}{subsubsection.5.2.3}
+\contentsline {subsubsection}{\numberline {5.2.4}The Duality Theorem}{46}{subsubsection.5.2.4}
+\contentsline {subsubsection}{\numberline {5.2.5}The Convolution Theorem}{49}{subsubsection.5.2.5}
+\contentsline {subsubsection}{\numberline {5.2.6}Convolution Associativity}{51}{subsubsection.5.2.6}
+\contentsline {subsubsection}{\numberline {5.2.7}Derivative Theorem}{51}{subsubsection.5.2.7}
+\contentsline {subsubsection}{\numberline {5.2.8}Fourier Transform Symmetries}{53}{subsubsection.5.2.8}
+\contentsline {subsubsection}{\numberline {5.2.9}Summary of the mathematical properties of the continuous Fourier transform}{55}{subsubsection.5.2.9}
+\contentsline {subsection}{\numberline {5.3}Fourier Transform Pairs}{57}{subsection.5.3}
+\contentsline {subsubsection}{\numberline {5.3.1}The rect and sinc function}{57}{subsubsection.5.3.1}
+\contentsline {subsubsection}{\numberline {5.3.2}Gaussian}{58}{subsubsection.5.3.2}
+\contentsline {subsubsection}{\numberline {5.3.3}Lorentzian form}{59}{subsubsection.5.3.3}
+\contentsline {subsubsection}{\numberline {5.3.4}Sampling ('comb') function}{60}{subsubsection.5.3.4}
+\contentsline {subsubsection}{\numberline {5.3.5}Fourier transform pairs}{61}{subsubsection.5.3.5}
+\contentsline {subsection}{\numberline {5.4}The Discrete Fourier Transform}{62}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}Discrete Transform Properties}{63}{subsection.5.5}
+\contentsline {subsection}{\numberline {5.6}Exercises}{64}{subsection.5.6}
+\contentsline {section}{\numberline {6}Fast Imaging in the Steady State}{80}{section.6}
+\contentsline {subsection}{\numberline {6.1}Expression for the Steady-State Incoherent (SSI) Signal}{80}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Exercises}{81}{subsection.6.2}
+\contentsline {section}{\numberline {7}Appendix}{82}{section.7}
+\contentsline {subsection}{\numberline {7.1}Torque}{82}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Cross Product}{83}{subsection.7.2}
