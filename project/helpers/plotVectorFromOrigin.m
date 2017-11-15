@@ -1,0 +1,29 @@
+function [handleVec, handleTip] = plotVectorFromOrigin(figureHandle, ...
+                                                       vectorComponents)
+% This function plots a vector from origin
+%
+% INPUT:
+%   figureHandle = the figure handle in which to plot
+%   vectorComponents = the vector you wish to plot
+% OUTPUT:
+%   handleVec = figure handle for the vector
+%   handleTip = figure handle for the tip
+%
+% Author: Irina Grigorescu, irina.grigorescu.15@ucl.ac.uk
+%                           irinagry@gmail.com
+
+colors = ['r', 'g', 'b', 'k', 'c'];
+
+% Plot vector from origin
+handleVec = plot3(figureHandle, ...
+                  [0 vectorComponents(1)], ...
+                  [0 vectorComponents(2)], ...
+                  [0 vectorComponents(3)], ...
+                  'Color', colors(4), 'LineStyle', '-', 'LineWidth', 1);
+handleVec.Color(4) = 0.1;
+% Plot the tip of the vector
+handleTip = plot3(figureHandle, ...
+                  vectorComponents(1), ...
+                  vectorComponents(2), ...
+                  vectorComponents(3), ...
+                 'Color', colors(5), 'Marker', '.', 'MarkerSize', 20);

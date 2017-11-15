@@ -11,6 +11,7 @@ function spexc = excessSpins(B0, T, gamma)
 %    spexc = Calculated spin excess (as a fraction)
 %
 % Author: Irina Grigorescu, irina.grigorescu.15@ucl.ac.uk
+%                           irinagry@gmail.com
 
 % Parameters:
 reducedPlanck  = 1.05*(10^-34); % Reduced Planck constant (J*s)

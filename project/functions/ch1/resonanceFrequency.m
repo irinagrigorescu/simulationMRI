@@ -10,6 +10,7 @@ function freq = resonanceFrequency(B0, gamma)
 %    freq  = Calculated frequency (MHz)
 %
 % Author: Irina Grigorescu, irina.grigorescu.15@ucl.ac.uk
+%                           irinagry@gmail.com
 
 % Parameters:
 if nargin < 2
