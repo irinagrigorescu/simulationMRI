@@ -18,37 +18,38 @@ For example, I am currently experimenting with the extended phase graph concept,
 - [ ] Add plot with Mz and Mxy in both rotating and laboratory frames
 - [ ] Investigate off-resonance B1 
 
+### Structure of the project
 ```
 .
-├── LICENSE
-├── README.md
-├── project
-│   ├── data/
-│   ├── figures/
-│   │   ├── plots/
+├── LICENSE                      # License file
+├── README.md                    # This readme file
+├── project/                     # MATLAB project files
+│   ├── data/                    # Data files (*.mat)
+│   ├── figures/                 # Saved figures
+│   │   ├── plots/               
 │   │   └── videos/
-│   ├── functions
+│   ├── functions/               # Functions for each chapter
 │   │   ├── ch1/
 │   │   ├── ch11/
 │   │   ├── ch18/
 │   │   ├── ch28/
 │   │   └── ch9/
-│   ├── helpers/
-│   ├── learning
-│   │   ├── guicreation/
+│   ├── helpers/                 # Helper functions
+│   ├── learning/                # Scripts for when I want to learn about something
+│   │   ├── guicreation/         # Learnt about how to create a GUI
 │   │   │   ├── algs/
 │   │   │   │   └── ch3/
 │   │   │   └── gui/
 │   │   │       └── ch3/
-│   │   ├── imagingA2DObject/
-│   │   └── spiral/
-│   └── test/
-└── report
+│   │   ├── imagingA2DObject/    # Simulating the entire process of imaging
+│   │   └── spiral/              # Simulating spiral
+│   └── test/                    # Tests
+└── report                       # Latex report
     ├── Appendix.tex
     ├── MRIbook.pdf
-    ├── MRIbook.tex
+    ├── MRIbook.tex              # Main report file
     ├── MRIbook.toc
-    ├── chapters/
+    ├── chapters/                # Files for each chapter
     │   ├── Ch1.tex
     │   ├── Ch11.tex
     │   ├── Ch11Exercises.tex
@@ -61,10 +62,10 @@ For example, I am currently experimenting with the extended phase graph concept,
     │   ├── Ch3Exercises.tex
     │   ├── Ch4.tex
     │   └── Ch4Exercises.tex
-    ├── compile.sh
-    ├── img/
+    ├── compile.sh               # Script to compile from Latex to Pdf file
+    ├── img/                     # Images for the pdf 
     ├── mcode.sty
-    └── references.bib
+    └── references.bib           # References
  ```
 
 
