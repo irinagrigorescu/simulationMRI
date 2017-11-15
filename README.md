@@ -8,9 +8,9 @@ Email: <irina.grigorescu.15@ucl.ac.uk>
 
 This work is based on the book called "Magnetic Resonance Imaging: Physical Principles and Sequence Design" by Robert W. Brown, Yu-Chung Cheng and E. Mark Haacke.
 
-The '''project/learning/''' folder contains different things I would like to learn.
+The `project/learning/` folder contains different things I would like to learn.
 
-The '''report/''' folder has Latex files with solved problems and notes.
+The `report/` folder has Latex files with solved problems and notes.
 
 ### TODO
 - [ ] Fix the phase stuff because phase is related to B1 field, and modelling it as a rotation about the z axis does not make sense physically.
