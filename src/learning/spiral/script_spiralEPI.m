@@ -4,10 +4,62 @@
 % Playing around with it
 % 
 
-% clear all; close all
+clear all; close all
 
-gammabar = 42.58; % MHz T^-1
+% Prerequisites
+gamma    = 2.68*1E08;      %(rad/s/T)
+gammabar = gamma./(2*pi);  %(1/s/T)
 
+% Imaging requirements
+FOV = 0.3;                    % 300mm = 0.3m
+Nx = 192; Ny = 192;           % Nx = Ny = 192
+dx = FOV/Nx;
+Ts = 0.06;                    % 6ms = 0.06s
+fBW = 50000;                  % BW frequency = 50kHz = 50,000 Hz
+dt = 1/fBW;                   % dwell time dt = 1/BW
+Ns = Ts/dt;                   % number of samples
+Nr = 48; Nt = ceil(Ns/Nr);
+Gmax = 1 / (gammabar*dt*FOV); 
+
+% K-space trajectory
+Nshot = 1;
+t = 0:dt:Ts-dt;                            % Ns time points from 0 to 6 ms
+alpha1 = pi/(gamma*Nt*Nr*dt*dx);
+alpha2 = 2*pi/(Nt*dt);                  % thetaMax = pi N / Nshot
+                                           % thetaMax = alpha*Ts
+                                           % alpha = (pi N) / (Ts Nshot)
+kx  = gamma * alpha1 .* (t.^2.1) .* cos(alpha2 .* t);
+ky  = gamma * alpha1 .* (t.^2.1) .* sin(alpha2 .* t);
+
+% Gradient trajectory
+Gx = alpha1 .* cos(alpha2.*t) - alpha1 .* alpha2 .* t .* sin(alpha2.*t);
+Gy = alpha1 .* sin(alpha2.*t) + alpha1 .* alpha2 .* t .* cos(alpha2.*t);
+
+% Plot
+figure; hold on
+subplot(2,2,1)
+scatter(kx, ky, '.'); 
+xlabel('k_x (m^{-1})'); ylabel('k_y (m^{-1})'); 
+axis equal
+
+subplot(2,2,2)
+scatter(t, Gx.*1E+03, '.'); 
+xlabel('s'); ylabel('G_x (mT)'); 
+
+subplot(2,2,4)
+scatter(t, Gy.*1E+03, '.'); 
+xlabel('s'); ylabel('G_y (mT)'); 
+
+
+
+
+
+
+
+
+
+
+%%
 % Functions
 kx_traj = @(a1, a2, t) gammabar .* a1 .* t .* sin(a2.*t);
 ky_traj = @(a1, a2, t) gammabar .* a1 .* t .* cos(a2.*t);

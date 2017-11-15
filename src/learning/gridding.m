@@ -1,3 +1,5 @@
+% I think this comes from a presentation I found online
+% Just a test - it's not an actual script doing something useful
 
 % Interpolate a 2D scattered data set over a uniform grid
 xy = -2.5 + 5*gallery('uniformdata',[200 2],0);

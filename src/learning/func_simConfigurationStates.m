@@ -36,11 +36,11 @@ end
 % 1 Tesla = 10^4  Gauss 
 % 1 Gauss = 10^-4 Tesla = 100uT
 gammabar =  42.58 * 1e+03; % 42.58 MHz/T = 42.58 * 10^3 (kHz / T )
-grad     =  50.00 * 1e-07; %  0.05 G/mm  =  0.05 * 10^-4 ( T  / mm)
+grad     =  [0 ; 0 ; 50.00 * 1e-07]; %  0.05 G/mm  =  0.05 * 10^-4 ( T  / mm)
 % % Positions of Spins in the z direction:
-positZ = linspace(0, 1, N); % mm
+positionSpins = [zeros(1,N) ; zeros(1,N) ; linspace(-1, 1, N)]; % mm
 % % Frequency induced due to gradient:
-omegaGrad = (gammabar * 2*pi) * grad * positZ; % gamma*G*x (rad kHz)
+omegaGrad = (gammabar * 2*pi) .* (grad.' * positionSpins); % gamma*G*x (rad kHz)
 % % The spins
 M = repmat([1 0 0]', 1, N); % Lying in the transverse plane
 
@@ -48,7 +48,7 @@ M = repmat([1 0 0]', 1, N); % Lying in the transverse plane
 % % % % FIGURE and its global details
 figHand = figure('Position', [10,10,1200,800]); % #need this for video
 dt = 0.1; % ms
-Ntime = 200; % number of time points
+Ntime = 50; % number of time points
 c = linspace(1,2,N); % Colors for the magnetic moments tips
 
 % % % % The event matrix
@@ -65,29 +65,28 @@ xlabel('time'); ylabel('gradient');
 subplot(4,2,[1,6])
 axisl = 1.1;
 createAxis(axisl);
-gline = plot3([0, 0], [0, 0], [0, 1], 'k');
+gline = plot3([0, 0], [0, 0], [-1, 1], 'k');
 gline.LineWidth = 2;
-scatter3(0,0,1, 'kd', 'filled');
+% scatter3(0,0,1, 'kd', 'filled');
 axis square; 
 xlim([-1 1]); ylim([-1 1]); 
-zlim([0 axisl]); 
+zlim([-axisl axisl]); 
 view(35, 15); %view(130,15); %view(110, 10); %(110,10)
 
 % % Plot the initial positions
-MLines = zeros(3, 2*N);
-MLines(3, 1:2:end) = positZ(:); % start coordinate
-MLines(:, 2:2:end) = M(:, :);   % end   coordinate
-MLines(3, 2:2:end) = MLines(3, 2:2:end) + positZ; % to separate them
+MLinesStart = positionSpins; % start coordinate
+MLinesEnd   = M;             % end coordinate
+MLinesEnd(3, :) = positionSpins(3, :); 
 
-vecLine3D = plot3(MLines(1, :), ...
-                  MLines(2, :), ...
-                  MLines(3, :), 'k' );
-vecLine3D.Color(4) = 0.1;
+vecLine3D = plot3([MLinesStart(1,:) ; MLinesEnd(1,:)], ...
+                  [MLinesStart(2,:) ; MLinesEnd(2,:)], ...
+                  [MLinesStart(3,:) ; MLinesEnd(3,:)], 'k');
+% vecLine3D.Color(4) = 0.1;
 
 hold on
 vecTip3D  = scatter3(M(1, :), ...
                      M(2, :), ...
-                     M(3, :) + positZ, ...
+                     M(3, :) + positionSpins(3,:), ...
                      [], c, 'filled');
 
 % % % Pause so I can start the simulation with a key
@@ -112,9 +111,9 @@ for i = 1:Ntime
     end                                            % :(
     
     % % % % Plot after dephasing
-    MLines(3, 1:2:end) = positZ(:); % start coordinate
-    MLines(:, 2:2:end) = M(:, :);   % end   coordinate
-    MLines(3, 2:2:end) = MLines(3, 2:2:end) + positZ; % to separate them
+    MLinesStart = positionSpins; % start coordinate
+    MLinesEnd   = M;             % end coordinate
+    MLinesEnd(3, :) = positionSpins(3, :); 
 
     % % % % The event matrix
     subplot(4,2,[7,8])
@@ -123,15 +122,15 @@ for i = 1:Ntime
     
     % % % % The 3D plot
     subplot(4,2,[1,6])
-    vecLine3D = plot3(MLines(1, :), ...
-                      MLines(2, :), ...
-                      MLines(3, :), 'k' );
-	vecLine3D.Color(4) = 0.1;
+    vecLine3D = plot3([MLinesStart(1,:) ; MLinesEnd(1,:)], ...
+                      [MLinesStart(2,:) ; MLinesEnd(2,:)], ...
+                      [MLinesStart(3,:) ; MLinesEnd(3,:)], 'k');
+	%vecLine3D.Color(4) = 0.1;
     
     hold on
     vecTip3D  = scatter3(M(1, :), ...
                          M(2, :), ...
-                         M(3, :) + positZ, ...
+                         M(3, :) + positionSpins(3,:), ...
                          [], c, 'filled');
     
     % % Save into video if flag set to 1

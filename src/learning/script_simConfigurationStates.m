@@ -13,10 +13,10 @@ addpath ../helpers/
 %% Simulation
 % % % % % % % % % % % CREATE SIMULATION:
 % % RELAXATION TERMS:
-T1 = 10000;
-T2 = 10000;
+T1 = 1000;
+T2 = 100;
 % % SPINS:
-N   =  1000;
+N   =  5;
 % % VIDEO:
 videoFlag.flag      = 0;    % % Don't make video
 videoFlag.nameVideo = 'configStatesSim-video';
