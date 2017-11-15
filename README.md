@@ -18,6 +18,53 @@ For example, I am currently experimenting with the extended phase graph concept,
 - [ ] Add plot with Mz and Mxy in both rotating and laboratory frames
 - [ ] Investigate off-resonance B1 
 
-
+```
+.
+├── LICENSE
+├── README.md
+├── project
+│   ├── data/
+│   ├── figures/
+│   │   ├── plots/
+│   │   └── videos/
+│   ├── functions
+│   │   ├── ch1/
+│   │   ├── ch11/
+│   │   ├── ch18/
+│   │   ├── ch28/
+│   │   └── ch9/
+│   ├── helpers/
+│   ├── learning
+│   │   ├── guicreation/
+│   │   │   ├── algs/
+│   │   │   │   └── ch3/
+│   │   │   └── gui/
+│   │   │       └── ch3/
+│   │   ├── imagingA2DObject/
+│   │   └── spiral/
+│   └── test/
+└── report
+    ├── Appendix.tex
+    ├── MRIbook.pdf
+    ├── MRIbook.tex
+    ├── MRIbook.toc
+    ├── chapters/
+    │   ├── Ch1.tex
+    │   ├── Ch11.tex
+    │   ├── Ch11Exercises.tex
+    │   ├── Ch18.tex
+    │   ├── Ch18Exercises.tex
+    │   ├── Ch1Exercises.tex
+    │   ├── Ch2.tex
+    │   ├── Ch2Exercises.tex
+    │   ├── Ch3.tex
+    │   ├── Ch3Exercises.tex
+    │   ├── Ch4.tex
+    │   └── Ch4Exercises.tex
+    ├── compile.sh
+    ├── img/
+    ├── mcode.sty
+    └── references.bib
+ ```
 
 
