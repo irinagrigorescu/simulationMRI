@@ -8,7 +8,7 @@ addpath(genpath('../../helpers/'))
 
 %% Prerequisites regarding saving your animation as a video mp4 file
 videoFlag = struct;
-videoFlag.flag = 1;
+videoFlag.flag = 0;
 videoFlag.nameVideo = '../../figures/videos/spinPrecessionAnimation';
 
 % Create a video writer class object 
