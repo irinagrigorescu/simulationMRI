@@ -29,7 +29,7 @@ The `report/` folder has Latex files with solved problems and notes.
 │   ├── figures/                 # Saved figures
 │   │   ├── plots/               
 │   │   └── videos/
-│   ├── functions/               # Functions for each chapter
+│   ├── src/                     # Functions for each chapter
 │   │   ├── ch1/
 │   │   ├── ch11/
 │   │   ├── ch18/
