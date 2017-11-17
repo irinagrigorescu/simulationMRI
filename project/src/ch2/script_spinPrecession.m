@@ -3,7 +3,14 @@
 % 
 % Author: Irina Grigorescu, irina.grigorescu.15@ucl.ac.uk
 %                           irinagry@gmail.com
+% 
+% Function dependencies:
+%   plotVectorComponents
+%   plotVectorFromOrigin
+%   Rotz
+%   func_saveToVideo
 
+clear all ; close all ; clc
 addpath(genpath('../../helpers/'))
 
 %% Prerequisites regarding saving your animation as a video mp4 file
@@ -37,7 +44,7 @@ dT = 0.01;
 % Angle of rotation for each time increment
 dAngle = dOmega * dT;
 % Number of increments
-nIncrements = 100;
+nIncrements = 500;
 
 %% Calculate the magnetisation vector position for each time step
 muVecHistory = zeros(3, nIncrements+1);
@@ -53,7 +60,7 @@ figHandle = figure('Position', [50, 150, 1200, 600]); hold on
 toClose = 0;
 
 for i = 1:nIncrements+1
-    % Plot the vector animation
+    % Plot the 3D vector animation
     if i == 1
         fh1 = subplot(3,4,[1, 10]);
         % Create the 3D axis
@@ -64,10 +71,10 @@ for i = 1:nIncrements+1
         xlabel('\mu_x'); ylabel('\mu_y'); zlabel('\mu_z');
     end
 	% Plot vector
-    [~, handleTip] = plotVectorFromOrigin(fh1, muVecHistory(:,i));
+    [handleLine, handleTip] = plotVectorFromOrigin(fh1, muVecHistory(:,i));
 	
     
-    % Plot the component wise animation
+    % Plot the component-wise animation
     if i == 1
         fh2 = subplot(3,4,[7,8]);
         % plot component wise
@@ -100,6 +107,7 @@ for i = 1:nIncrements+1
         handleTip.Color(2) = 0.9;
         handleTip.Color(3) = 0.9;
         handleTip.MarkerSize = 10;
+        handleLine.Color(4) = 0.1;
     end
     
     % Next iteration close the video handle
